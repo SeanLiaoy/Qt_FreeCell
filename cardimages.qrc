@@ -1,0 +1,63 @@
+<RCC>
+    <qresource prefix="/card">
+        <file>images/1_0.jpg</file>
+        <file>images/1_1.jpg</file>
+        <file>images/1_2.jpg</file>
+        <file>images/1_3.jpg</file>
+        <file>images/2_0.jpg</file>
+        <file>images/2_1.jpg</file>
+        <file>images/2_2.jpg</file>
+        <file>images/2_3.jpg</file>
+        <file>images/3_0.jpg</file>
+        <file>images/3_1.jpg</file>
+        <file>images/3_2.jpg</file>
+        <file>images/3_3.jpg</file>
+        <file>images/4_0.jpg</file>
+        <file>images/4_1.jpg</file>
+        <file>images/4_2.jpg</file>
+        <file>images/4_3.jpg</file>
+        <file>images/5_0.jpg</file>
+        <file>images/5_1.jpg</file>
+        <file>images/5_2.jpg</file>
+        <file>images/5_3.jpg</file>
+        <file>images/6_0.jpg</file>
+        <file>images/6_1.jpg</file>
+        <file>images/6_2.jpg</file>
+        <file>images/6_3.jpg</file>
+        <file>images/7_0.jpg</file>
+        <file>images/7_1.jpg</file>
+        <file>images/7_2.jpg</file>
+        <file>images/7_3.jpg</file>
+        <file>images/8_0.jpg</file>
+        <file>images/8_1.jpg</file>
+        <file>images/8_2.jpg</file>
+        <file>images/8_3.jpg</file>
+        <file>images/9_0.jpg</file>
+        <file>images/9_1.jpg</file>
+        <file>images/9_2.jpg</file>
+        <file>images/9_3.jpg</file>
+        <file>images/10_0.jpg</file>
+        <file>images/10_1.jpg</file>
+        <file>images/10_2.jpg</file>
+        <file>images/10_3.jpg</file>
+        <file>images/11_0.jpg</file>
+        <file>images/11_1.jpg</file>
+        <file>images/11_2.jpg</file>
+        <file>images/11_3.jpg</file>
+        <file>images/12_0.jpg</file>
+        <file>images/12_1.jpg</file>
+        <file>images/12_2.jpg</file>
+        <file>images/12_3.jpg</file>
+        <file>images/13_0.jpg</file>
+        <file>images/13_1.jpg</file>
+        <file>images/13_3.jpg</file>
+        <file>images/13_2.jpg</file>
+    </qresource>
+    <qresource prefix="/background">
+        <file>images/bg.jpg</file>
+        <file>images/welcome_bg.jpg</file>
+    </qresource>
+    <qresource prefix="/icon">
+        <file>images/icon.ico</file>
+    </qresource>
+</RCC>
