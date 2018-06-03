@@ -19,7 +19,7 @@ GameResultDlg::GameResultDlg(QWidget *parent) :
     db.setHostName("206.189.172.111");
     db.setPort(3306);
     db.setUserName("root");
-    db.setPassword("q9a6z3");
+    db.setPassword("yourpassword");
     bool ok = db.open();
     if(ok)
     {
