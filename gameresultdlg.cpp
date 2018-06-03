@@ -16,7 +16,7 @@ GameResultDlg::GameResultDlg(QWidget *parent) :
 
     db = QSqlDatabase::addDatabase("QMYSQL");
     db.setDatabaseName("freecelldb");
-    db.setHostName("206.189.172.111");
+    db.setHostName("127.0.0.1");
     db.setPort(3306);
     db.setUserName("root");
     db.setPassword("yourpassword");
