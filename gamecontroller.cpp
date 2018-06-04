@@ -16,12 +16,10 @@
 #include <QThread>
 #include "gameresultdlg.h"
 #include <QMessageBox>
-GameController::GameController(QGraphicsScene &scene, QObject *parent,qreal scaler_x,qreal scaler_y) :
+GameController::GameController(QGraphicsScene &scene, QObject *parent) :
     QObject(parent),
     scene(scene)
 {
-    window_scale_x = scaler_x;
-    window_scale_y = scaler_y;
     usedTime = 0;
     delCardsNum = 0;
     gameStart = false;
@@ -63,14 +61,14 @@ void GameController::initCardList()  //初始化手牌区
     }
 
     scene.addItem(cardList[0]);
-    cardList[0]->setPos(int(CARD_LIST_X*window_scale_x),int(CARD_LIST_Y*window_scale_y));
+    cardList[0]->setPos(CARD_LIST_X,CARD_LIST_Y);
 
 
     //放置CardList
     for(int i = 1; i < CARD_LIST_NUM; i++)
     {
         scene.addItem(cardList[i]);
-        cardList[i]->setPos(cardList[i-1]->x()+CARD_WIDTH+int(CARD_LIST_WIDTH_LEAP*window_scale_x),int(CARD_LIST_Y*window_scale_y));
+        cardList[i]->setPos(cardList[i-1]->x()+CARD_WIDTH+CARD_LIST_WIDTH_LEAP,CARD_LIST_Y);
         cardList[i]->setZValue(0);
     }
 }
@@ -93,17 +91,13 @@ void GameController::initCards()
             card->setPos(cardList[i]->getCard(j-1)->x(),cardList[i]->getCard(j-1)->y()+CARD_LIST_LEAP);
 
             cardList[i]->getCard(j-1)->setFlag(QGraphicsItem::ItemIsMovable,false);
-            cardList[i]->getCard(j-1)->setTop(false);
         }
 
-        cardList[i]->getCard(cardNums-1)->setTop(true);
         cardList[i]->lastCard = cardList[i]->getCard(cardNums-1);
 
         cardList[i]->initCardsZValue();
     }
 
-    // ******初始发牌形成的Card链处理
-    //for(int i = 0; i < CARD_LIST_NUM; i++)
 }
 
 void GameController::initCardTemps()
@@ -115,7 +109,7 @@ void GameController::initCardTemps()
     {
         cardTemp[i] = new CardTemp();
         scene.addItem(cardTemp[i]);
-        cardTemp[i]->setPos(cardTemp[i-1]->x() + int(CARD_LIST_WIDTH_LEAP*window_scale_x) + CARD_WIDTH,CARD_TEMP_Y);
+        cardTemp[i]->setPos(cardTemp[i-1]->x() + CARD_LIST_WIDTH_LEAP + CARD_WIDTH,CARD_TEMP_Y);
     }
 }
 
@@ -128,7 +122,7 @@ void GameController::initCardDests()
     {
         cardDest[i] = new CardDest();
         scene.addItem(cardDest[i]);
-        cardDest[i]->setPos(cardDest[i-1]->x() + int(CARD_LIST_WIDTH_LEAP*window_scale_x) + CARD_WIDTH,CARD_DEST_Y);
+        cardDest[i]->setPos(cardDest[i-1]->x() + CARD_LIST_WIDTH_LEAP + CARD_WIDTH,CARD_DEST_Y);
     }
 }
 
@@ -143,7 +137,6 @@ bool GameController::CardToTemp(Card *card, CardTemp *temp)
         if(card->cardtemp != NULL)
         {
             card->cardtemp->setEmpty();
-            //qDebug() << "清空原来的CardTemp";
         }
 
         //移动到新的CardTemp
@@ -158,7 +151,7 @@ bool GameController::CardToTemp(Card *card, CardTemp *temp)
             card->cardlist->removeCard();
             card->cardlist = NULL;
         }
-
+        card->setZValue(2);
         return true;
     }
 }
@@ -199,6 +192,7 @@ bool GameController::CardToList(Card *card, CardList *cardList)
         else
         {
             card->setPos(cardList->pos());
+            card->setZValue(1);
         }
 
         //插入cardList
@@ -234,13 +228,12 @@ bool GameController::CardToDest(Card *card, CardDest *carddest)
         {
             card->clearCardList();
         }
-        carddest->insertCard(card);
+        carddest->insertCard(card); //这里setZvalue
         delCardsNum += 1;
         if(delCardsNum == TOTAL_CARDS)
         {
             GameOver();
         }
-
         return true;
     }
 
@@ -331,7 +324,7 @@ void GameController::startNewGame()
     initCardTemps();
     initCardDests();
 
-    timer->start(1000);
+    timer->start(1000); // 按秒开始计时
 }
 
 void GameController::updateTime()

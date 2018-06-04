@@ -5,7 +5,7 @@
 #include <QGraphicsSceneEvent>
 #include <QWidget>
 #include <QMimeData>
-//#include <QDebug>
+
 CardTemp::CardTemp()
 {
     card = NULL;

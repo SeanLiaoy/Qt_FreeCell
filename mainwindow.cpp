@@ -25,18 +25,15 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       scene(new QGraphicsScene(this)),
-      view(new QGraphicsView(scene,this))
-      //game(new GameController(*scene,this))
+      view(new QGraphicsView(scene,this)),
+      game(new GameController(*scene,this))
 {
-    window_scale_x = QApplication::desktop()->width() / 1920;
-    window_scale_y = QApplication::desktop()->height() / 1080;
-    game = new GameController(*scene,this,window_scale_x,window_scale_y);
-    qDebug() << "scaler: " << window_scale_x;
+
     setWindowIcon(QIcon(":/icon/images/icon.ico"));
     setWindowTitle("空当接龙FreeCell        Author:SeanLiao");
     setCentralWidget(view);
     resize(WINDOW_WIDTH,WINDOW_HEIGHT);
-    this->setFixedSize(int(this->width()*window_scale_x),int(this->height()*window_scale_y));
+    this->setFixedSize(this->width(),this->height());
     initScene();
 
     //菜单栏
@@ -62,7 +59,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(pInfo,&QAction::triggered,
             [=]()
             {
-                QMessageBox::information(this,"关于作者","作者:\tSeanLiao\n微信:\tyuan52\n华南师范大学计算机学院16软件四班 20163708015");
+                QMessageBox::information(this,"关于作者","作者:\tSeanLiao\n微信:\tyuan52\n华南师范大学");
             });
     scene->addPixmap(QPixmap(":/background/images/welcome_bg.jpg"));
     view->setScene(scene);

@@ -5,7 +5,7 @@
 #define WINDOW_WIDTH 1200
 #define WINDOW_HEIGHT 900
 
-#define CARD_LIST_Y 430
+#define CARD_LIST_Y 400
 #define CARD_LIST_X 40
 
 #define TOTAL_CARDS 52

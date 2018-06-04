@@ -17,8 +17,6 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    qreal window_scale_x;
-    qreal window_scale_y;
 private:
     void initScene();
     void initSceneBackground();

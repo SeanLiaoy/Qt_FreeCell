@@ -30,6 +30,6 @@ void CardDest::insertCard(Card *c)
     }
     card = c;
     card->setPos(this->pos());
-    card->setZValue(1);
+    card->setZValue(2);
     card->setFlag(ItemIsMovable,false);
 }

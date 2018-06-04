@@ -51,11 +51,10 @@ Card::Card(const QString &path,GameController &controller) : controller(controll
         qDebug() << "cardNum is ACE";
     pic = new QPixmap;
     pic->load(path);
-    isTop = true;  //默认置顶
     cardtemp = NULL;
     cardlist = NULL;
     nextCard = NULL;
-    //frozen = false;
+
     setFlag(ItemIsMovable,true);  // 取消 : setFalg(ItemIsMovable,false);
     setFlag(ItemSendsGeometryChanges);
 }
@@ -83,22 +82,7 @@ QPainterPath Card::shape() const
     return path;
 }
 
-bool Card::advance()
-{
-    if (newPos == pos())
-       return false;
-    qDebug() << "advance()";
-    //setPos(newPos);
-    //handleCollisions();
-    return true;
-}
 
-
-
-void Card::setTop(bool t)
-{
-    isTop = t;
-}
 
 bool Card::isBlackCard()
 {
@@ -108,7 +92,6 @@ bool Card::isBlackCard()
 }
 
 
-//***这个函数的功能部分要转移到GameControll中，只留下检测***
 bool Card::handleCollisions() //碰撞检测
 {
     QList<QGraphicsItem *> collisions = collidingItems();
@@ -175,16 +158,23 @@ CardNum Card::getCardNum() const
 
 void Card::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    if(event->button() != Qt::LeftButton || this->isTop == false)
+    if(event->button() != Qt::LeftButton)
     {
         event->ignore();
         return;
     }
+    if(this->cardlist != NULL && cardlist->getLastCard() != this && this->nextCard == NULL)
+    {
+        event->ignore();
+        return;
+    }
+
+
     oldZValue = this->zValue();
     oldPos = pos();
 
     this->setZValue(2000);
-    //qDebug() << "this->nextCard:" << nextCard;
+    qDebug() << "this.ZValue:" << this->zValue();
     update();
     QGraphicsItem::mousePressEvent(event);
 }
@@ -214,10 +204,14 @@ void Card::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     {
         setPos(oldPos);
         this->setZValue(oldZValue);
-        updateCardLinkPosi();
     }
-    if(cardtemp != NULL)
-        this->setZValue(oldZValue);
+    updateCardLinkPosi();
+//    if(cardtemp != NULL)
+//        this->setZValue(oldZValue);
+//    else if(cardlist != NULL && cardlist->getCardNums() == 1)
+//    {
+//        this->setZValue(2);
+//    }
     QGraphicsItem::mouseReleaseEvent(event);
 }
 
@@ -227,24 +221,6 @@ QVariant Card::itemChange(QGraphicsItem::GraphicsItemChange change, const QVaria
     {
         case ItemPositionChange:
         {
-            newPos = this->pos();
-            if(this->x() < 0)
-            {
-                newPos.setX(0);
-            }
-            else if(this->x() > (this->scene()->width() - pic->width()))
-            {
-                newPos.setX(this->scene()->width() - pic->width());
-            }
-
-            if(this->y() < 0)
-            {
-                newPos.setY(0);
-            }
-            else if(this->y() > (this->scene()->height() - this->pic->height()))
-            {
-                newPos.setY(this->scene()->height() - pic->height());
-            }
             updateCardLinkPosi();
         }
         break;

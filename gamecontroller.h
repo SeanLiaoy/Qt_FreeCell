@@ -20,11 +20,8 @@ class GameController : public QObject
 
 
 public:
-    GameController(QGraphicsScene &scene, QObject *parent = 0,qreal scaler_x=1,qreal scaler_y=1);
+    GameController(QGraphicsScene &scene, QObject *parent = 0);
     ~GameController();
-
-    qreal window_scale_x;
-    qreal window_scale_y;
 
     void initCardList();
     void initCards();

@@ -5,7 +5,7 @@
 CardList::CardList()
 {
     lastCard = NULL;
-    setData(GD_Type,CLIST); //为了方便，就跟CardTemp一样的数据好了  
+    setData(GD_Type,CLIST); //用于识别碰撞检测
 }
 
 bool CardList::enableCard(Card *card)
@@ -53,7 +53,7 @@ void CardList::removeCard() //清理被移除的最后一张纸牌
         lastCard = cardlist.last();
         qDebug() << "after remove, old cardlist's last Card:" << lastCard->cardNum;
         lastCard->setFlag(ItemIsMovable,true);
-        lastCard->setTop(true);
+        //lastCard->setTop(true);
         lastCard->nextCard = NULL;
     }
     update();
@@ -86,7 +86,7 @@ void CardList::removeCardLink(Card *begincard)  //清理被移除的整个纸牌
         }
         lastCard = cardlist.last();
         lastCard->setFlag(ItemIsMovable,true);
-        lastCard->setTop(true);
+        //lastCard->setTop(true);
         lastCard->nextCard = NULL;
     }
 
@@ -142,12 +142,10 @@ void CardList::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     painter->restore();
 }
 
-//***等待更改：返回最后一张纸牌的shape()，用于碰撞检测
+// 用于碰撞检测
 QPainterPath CardList::shape() const
 {
     QPainterPath path;
-
-    //path.addRect(this->x(),this->y() + cardlist.size()*CARD_LIST_LEAP,CARD_WIDTH,CARD_HEIGHT);
     path.addRect(0,cardlist.size()*CARD_LIST_LEAP,CARD_WIDTH,CARD_HEIGHT);
     return path;
 
