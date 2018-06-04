@@ -16,10 +16,10 @@ GameResultDlg::GameResultDlg(QWidget *parent) :
 
     db = QSqlDatabase::addDatabase("QMYSQL");
     db.setDatabaseName("freecelldb");
-    db.setHostName("206.189.172.111");
+    db.setHostName("127.0.0.1");
     db.setPort(3306);
     db.setUserName("root");
-    db.setPassword("q9a6z3");
+    db.setPassword("yourpassword");
     bool ok = db.open();
     if(ok)
     {
@@ -83,7 +83,7 @@ bool GameResultDlg::uploadScore()
         int reply = QMessageBox::information(NULL,"提示","上传成绩成功！\n您的世界排名为：" + QString::number(rank)+ "\n点击OK打开浏览器查看完整排名");
         if(reply == QMessageBox::Ok)
         {
-            QDesktopServices::openUrl(QUrl(QLatin1String("http://206.189.172.111:8080/freecellScore/")));
+            QDesktopServices::openUrl(QUrl(QLatin1String("http://localhost:8080/freecellScore/")));
             this->close();
         }
 
